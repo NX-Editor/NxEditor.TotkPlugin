@@ -1,6 +1,6 @@
 {
-  "Name": "NxEditor.PluginTemplate",
+  "Name": "NxEditor.TotkPlugin",
   "Description": "",
-  "Assembly": "NxEditor.PluginTemplate.dll",
+  "Assembly": "NxEditor.TotkPlugin.dll",
   "GitHubRepoId": -1
 }
