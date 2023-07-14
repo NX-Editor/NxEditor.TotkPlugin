@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<EnableDynamicLoading>true</EnableDynamicLoading>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\lib\NxEditor.PluginBase\src\NxEditor.PluginBase.csproj">
+	  <!-- Base library must be public and the runtime should
+	       be excluded in order for the plugin to load correctly
+		   
+		   Other shared libraries (such as Avalonia or anything that uses Avalonia)
+		   should be defined in the same way -->
+	  <Private>false</Private>
+	  <ExcludeAssets>runtime</ExcludeAssets>
+	</ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="meta.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <!-- Copy build to plugins folder for quick debugging -->
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+  	<Exec Command="xcopy &quot;$(TargetDir)\*.*&quot; &quot;%25LOCALAPPDATA%25\nx-editor\plugins\$(TargetName)\&quot; /Y /D" />
+  </Target>
+
+</Project>
