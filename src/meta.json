@@ -2,5 +2,6 @@
   "Name": "NxEditor.TotkPlugin",
   "Description": "",
   "Assembly": "NxEditor.TotkPlugin.dll",
+  "IsEnabled": true,
   "GitHubRepoId": -1
 }
