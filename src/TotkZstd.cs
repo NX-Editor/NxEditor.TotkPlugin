@@ -48,7 +48,11 @@ public class TotkZstd : IProcessingService
 
     public IFileHandle Reprocess(IFileHandle handle)
     {
-        throw new NotImplementedException();
+        handle.Data = (handle.Name.EndsWith(".bcett.byml.zs")
+            ? _bcettCompressor.Wrap(handle.Data) : handle.Name.EndsWith(".pack.zs")
+            ? _packCompressor.Wrap(handle.Data) : handle.Name.EndsWith(".rsizetable.zs")
+            ? _defaultCompressor.Wrap(handle.Data) : _commonCompressor.Wrap(handle.Data)).ToArray();
+        return handle;
     }
 
     public bool IsValid(IFileHandle handle)
