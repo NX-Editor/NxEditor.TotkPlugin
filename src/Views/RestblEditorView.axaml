@@ -1,10 +1,19 @@
 <UserControl x:Class="NxEditor.TotkPlugin.Views.RestblEditorView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:AvaloniaEdit="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
-    <TextBlock Text="{Binding Random}" />
+    <Grid Margin="5"
+          ColumnDefinitions="*,Auto"
+          RowDefinitions="*,*">
+        <AvaloniaEdit:TextEditor Name="TextEditor"
+                                 Grid.RowSpan="2"
+                                 Margin="5"
+                                 FontFamily="{StaticResource UbuntuMono}"
+                                 ShowLineNumbers="True" />
+    </Grid>
 </UserControl>

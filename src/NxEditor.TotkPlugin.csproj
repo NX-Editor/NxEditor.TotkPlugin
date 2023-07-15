@@ -8,6 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+	<PackageReference Include="Avalonia.AvaloniaEdit" Version="11.0.0">
+	  <Private>false</Private>
+	  <ExcludeAssets>runtime</ExcludeAssets>
+	</PackageReference>
+	<PackageReference Include="AvaloniaEdit.TextMate" Version="11.0.0">
+	  <Private>false</Private>
+	  <ExcludeAssets>runtime</ExcludeAssets>
+	</PackageReference>
     <PackageReference Include="SarcLibrary" Version="2.0.2" />
     <PackageReference Include="ZstdSharp.Port" Version="0.7.2" />
   </ItemGroup>
@@ -22,10 +30,6 @@
       <Private>false</Private>
       <ExcludeAssets>runtime</ExcludeAssets>
     </ProjectReference>
-    <PackageReference Include="Avalonia" Version="11.0.0">
-      <Private>false</Private>
-      <ExcludeAssets>runtime</ExcludeAssets>
-    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
