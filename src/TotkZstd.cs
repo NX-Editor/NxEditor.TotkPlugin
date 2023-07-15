@@ -18,7 +18,7 @@ public class TotkZstd : IProcessingService
 
     static TotkZstd()
     {
-        byte[] zsDicPack = File.ReadAllBytes(Path.Combine(TotkConfig.Shared.GamePath, "Pack", "ZsDic.pack.za"));
+        byte[] zsDicPack = File.ReadAllBytes(Path.Combine(TotkConfig.Shared.GamePath, "Pack", "ZsDic.pack.zs"));
         zsDicPack = _defaultDecompressor.Unwrap(zsDicPack).ToArray();
         SarcFile sarc = SarcFile.FromBinary(zsDicPack);
 
@@ -41,17 +41,26 @@ public class TotkZstd : IProcessingService
 
     public IFileHandle Process(IFileHandle handle)
     {
+        handle.Name = Path.ChangeExtension(handle.Name, null);
+        handle.Path = Path.ChangeExtension(handle.Path, null);
         handle.Data = _defaultDecompressor
             .Unwrap(handle.Data).ToArray();
+
         return handle;
     }
 
     public IFileHandle Reprocess(IFileHandle handle)
     {
+        if (handle.Path != null) {
+            handle.Path += ".zs";
+        }
+
+        handle.Name += ".zs";
         handle.Data = (handle.Name.EndsWith(".bcett.byml.zs")
             ? _bcettCompressor.Wrap(handle.Data) : handle.Name.EndsWith(".pack.zs")
             ? _packCompressor.Wrap(handle.Data) : handle.Name.EndsWith(".rsizetable.zs")
             ? _defaultCompressor.Wrap(handle.Data) : _commonCompressor.Wrap(handle.Data)).ToArray();
+
         return handle;
     }
 
