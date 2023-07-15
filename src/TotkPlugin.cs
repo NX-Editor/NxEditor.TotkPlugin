@@ -1,4 +1,5 @@
 ﻿using NxEditor.PluginBase;
+using NxEditor.TotkPlugin.Providers;
 
 namespace NxEditor.TotkPlugin;
 
@@ -8,6 +9,7 @@ public class TotkPlugin : IServiceExtension
 
     public void RegisterExtension(IServiceLoader serviceManager)
     {
-        serviceManager.Register("TotkZstd", new TotkZstd());
+        serviceManager.Register("TotkZstd", new TotkZstd())
+            .Register("RestblEditor", new RestblEditorProvider());
     }
 }
