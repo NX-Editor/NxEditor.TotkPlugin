@@ -14,7 +14,6 @@ internal class RestblEditorProvider : IFormatServiceProvider
 
     public bool IsValid(IFileHandle handle)
     {
-        StatusModal.Set(Encoding.UTF8.GetString(handle.Data[0..6]));
         return handle.Data.AsSpan()[0..6].SequenceEqual("RESTBL"u8);
     }
 }
