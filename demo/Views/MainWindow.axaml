@@ -22,6 +22,6 @@
         <vm:MainWindowViewModel />
     </Design.DataContext>
 
-    <plugin:RestblEditorView />
+    <ContentControl Name="Src" />
 
 </Window>
