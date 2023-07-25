@@ -9,7 +9,8 @@ public class TotkPlugin : IServiceExtension
 
     public void RegisterExtension(IServiceLoader serviceManager)
     {
-        serviceManager.Register("TotkZstd", new TotkZstd())
+        serviceManager
+            .Register(new TotkZstd())
             .Register("RestblEditor", new RestblEditorProvider());
     }
 }
