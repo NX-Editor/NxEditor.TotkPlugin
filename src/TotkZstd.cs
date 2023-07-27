@@ -42,7 +42,7 @@ public class TotkZstd : IProcessingService
     public IFileHandle Process(IFileHandle handle)
     {
         handle.Name = Path.ChangeExtension(handle.Name, null);
-        handle.Path = Path.ChangeExtension(handle.Path, null);
+        handle.FilePath = Path.ChangeExtension(handle.FilePath, null);
         handle.Data = _defaultDecompressor
             .Unwrap(handle.Data).ToArray();
 
@@ -51,8 +51,8 @@ public class TotkZstd : IProcessingService
 
     public IFileHandle Reprocess(IFileHandle handle)
     {
-        if (handle.Path != null) {
-            handle.Path += ".zs";
+        if (handle.FilePath != null) {
+            handle.FilePath += ".zs";
         }
 
         handle.Name += ".zs";
