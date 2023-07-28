@@ -29,6 +29,7 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\lib\NxEditor.PluginBase\src\NxEditor.PluginBase.csproj" />
     <ProjectReference Include="..\src\NxEditor.TotkPlugin.csproj" />
   </ItemGroup>
 </Project>

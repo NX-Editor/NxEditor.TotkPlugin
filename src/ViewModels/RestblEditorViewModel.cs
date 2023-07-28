@@ -1,27 +1,56 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CsRestbl;
 using NxEditor.PluginBase.Components;
 using NxEditor.PluginBase.Models;
+using NxEditor.TotkPlugin.Models;
 using NxEditor.TotkPlugin.Views;
+using System.Collections.ObjectModel;
 
 namespace NxEditor.TotkPlugin.ViewModels;
 
+// Values are loaded when adding an entry to a changelog
+// Changelogs (rcl) are simple yaml diffs
+// Main editor (here) displays current changelog
+// Backend contains source restbl (for changelog gen) and saving
+// 
+// Edit RESTBL workflow
+// - Copy vanilla RESTBL
+// - Open in nxe
+// - Locate files to change (or add custom yaml entry like =< v0.3.5)
+// - Save changelog to local storage
+// - Save RESTBL to src as merged
+
 public partial class RestblEditorViewModel : Editor<RestblEditorViewModel, RestblEditorView>
 {
+    private static readonly List<RestblChangeLog> _staticChangelogFiles = RestblChangeLog.FromLocalStorage();
+    private static readonly string _stringTable = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "nx-editor", "resources", "string-table-1.2.0.txt");
+    private Restbl _restbl = new();
+
     public RestblEditorViewModel(IFileHandle handle) : base(handle) { }
 
     public override string[] ExportExtensions { get; } = { "RESTBL:*.rsizetable|", "zStd:*.rsizetable.zs|" };
 
     [ObservableProperty]
-    private string _random = "Some Field";
+    private ObservableCollection<RestblChangeLog> _changelogFiles = new(_staticChangelogFiles);
+
+    [ObservableProperty]
+    private RestblChangeLog? _current;
 
     public override Task Read()
     {
-        Random = "Some Read Field";
+        View.StringsEditor.Text = File.ReadAllText(_stringTable);
+        _restbl = Restbl.FromBinary(Handle.Data);
+
         return Task.CompletedTask;
     }
 
     public override Task<IFileHandle> Write()
     {
         throw new NotImplementedException();
+    }
+
+    partial void OnCurrentChanged(RestblChangeLog? value)
+    {
+        View.TextEditor.Text = value?.Content;
     }
 }

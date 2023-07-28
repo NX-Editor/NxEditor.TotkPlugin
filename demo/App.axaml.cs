@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
+using NxEditor.PluginBase;
 using NxEditor.TotkPlugin.Demo.ViewModels;
 using NxEditor.TotkPlugin.Demo.Views;
 
@@ -15,6 +16,9 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        TotkPlugin plugin = new();
+        plugin.RegisterExtension(ServiceLoader.Shared);
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             // Line below is needed to remove Avalonia data validation.
