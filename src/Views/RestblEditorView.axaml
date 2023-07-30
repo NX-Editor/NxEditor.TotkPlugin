@@ -71,6 +71,10 @@
                                        FontFamily="{StaticResource Ubuntu}"
                                        FontSize="13"
                                        Text="{Binding Name}" />
+                            <TextBlock FontFamily="{StaticResource Ubuntu}"
+                                       FontSize="13"
+                                       IsVisible="{Binding HasChanged}"
+                                       Text="*" />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

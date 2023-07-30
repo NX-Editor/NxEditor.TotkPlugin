@@ -18,6 +18,9 @@ public partial class RestblChangeLog : ObservableObject
     [ObservableProperty]
     private bool _isEnabled = false;
 
+    [ObservableProperty]
+    private bool _hasChanged = false;
+
     public RestblChangeLog(string path)
     {
         _filePath = path;

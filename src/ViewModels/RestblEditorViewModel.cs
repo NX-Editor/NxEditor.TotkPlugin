@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using AvaloniaEdit;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CsRestbl;
 using NxEditor.PluginBase.Components;
 using NxEditor.PluginBase.Models;
@@ -24,6 +25,7 @@ public partial class RestblEditorViewModel : Editor<RestblEditorViewModel, Restb
 {
     private static readonly List<RestblChangeLog> _staticChangelogFiles = RestblChangeLog.FromLocalStorage();
     private static readonly string _stringTable = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "nx-editor", "resources", "string-table-1.2.0.txt");
+    private bool _isChangeLocked = false;
     private Restbl _restbl = new();
 
     public RestblEditorViewModel(IFileHandle handle) : base(handle) { }
@@ -41,6 +43,14 @@ public partial class RestblEditorViewModel : Editor<RestblEditorViewModel, Restb
         View.StringsEditor.Text = File.ReadAllText(_stringTable);
         _restbl = Restbl.FromBinary(Handle.Data);
 
+        View.TextEditor.TextChanged += (s, e) => {
+            if (Current is not null && !_isChangeLocked) {
+                Current.HasChanged = true;
+            }
+
+            _isChangeLocked = false;
+        };
+
         return Task.CompletedTask;
     }
 
@@ -49,8 +59,16 @@ public partial class RestblEditorViewModel : Editor<RestblEditorViewModel, Restb
         throw new NotImplementedException();
     }
 
+    partial void OnCurrentChanging(RestblChangeLog? oldValue, RestblChangeLog? newValue)
+    {
+        if (oldValue is not null) {
+            oldValue.Content = View.TextEditor.Text;
+        }
+    }
+
     partial void OnCurrentChanged(RestblChangeLog? value)
     {
+        _isChangeLocked = true;
         View.TextEditor.Text = value?.Content;
     }
 }
