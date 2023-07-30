@@ -1,11 +1,14 @@
 ﻿using AvaloniaEdit;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using CsRestbl;
 using NxEditor.PluginBase.Components;
 using NxEditor.PluginBase.Models;
+using NxEditor.TotkPlugin.Helpers;
 using NxEditor.TotkPlugin.Models;
 using NxEditor.TotkPlugin.Views;
 using System.Collections.ObjectModel;
+using System.Text;
 
 namespace NxEditor.TotkPlugin.ViewModels;
 
@@ -70,5 +73,50 @@ public partial class RestblEditorViewModel : Editor<RestblEditorViewModel, Restb
     {
         _isChangeLocked = true;
         View.TextEditor.Text = value?.Content;
+    }
+
+    [RelayCommand]
+    public void FormatText(TextEditor editor)
+    {
+        StringBuilder sb = new();
+
+        foreach (var rawText in editor.Text.Replace("\r\n", "\n").Split('\n')) {
+            string text = rawText.Trim();
+
+            if (string.IsNullOrEmpty(text)) {
+                sb.AppendLine();
+                continue;
+            }
+
+            if (text.StartsWith('+') || text.StartsWith('*') || text.StartsWith('-') || text.StartsWith('#')) {
+                sb.AppendLine(text);
+                continue;
+            }
+
+            int index;
+            string stringKey = (index = text.IndexOf(' ')) > -1 ? text[..index] : text;
+            uint size = 0;
+
+            if (_restbl.NameTable.Contains(stringKey)) {
+                size = _restbl.NameTable[stringKey];
+                sb.Append("* ");
+                goto End;
+            }
+
+            uint hashKey = Crc32.Compute(stringKey);
+            if (_restbl.CrcTable.Contains(hashKey)) {
+                size = _restbl.CrcTable[hashKey];
+                sb.Append("* ");
+                goto End;
+            }
+
+            sb.Append("+ ");
+
+        End:
+            sb.Append(stringKey);
+            sb.AppendLine($" = {size}");
+        }
+
+        editor.Text = sb.ToString();
     }
 }
