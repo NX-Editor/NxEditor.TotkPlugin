@@ -15,6 +15,9 @@ public class TotkZstd : IProcessingService
     private static Compressor _packCompressor = new(_level);
 
     private static readonly Decompressor _defaultDecompressor = new();
+    private static Decompressor _commonDecompressor = new();
+    private static Decompressor _bcettDecompressor = new();
+    private static Decompressor _packDecompressor = new();
 
     static TotkZstd()
     {
@@ -22,9 +25,9 @@ public class TotkZstd : IProcessingService
         zsDicPack = _defaultDecompressor.Unwrap(zsDicPack).ToArray();
         SarcFile sarc = SarcFile.FromBinary(zsDicPack);
 
-        foreach ((_, var data) in sarc) {
-            _defaultDecompressor.LoadDictionary(data);
-        }
+        _commonDecompressor.LoadDictionary(sarc["zs.zsdic"]);
+        _bcettDecompressor.LoadDictionary(sarc["bcett.byml.zsdic"]);
+        _packDecompressor.LoadDictionary(sarc["pack.zsdic"]);
 
         _commonCompressor.LoadDictionary(sarc["zs.zsdic"]);
         _bcettCompressor.LoadDictionary(sarc["bcett.byml.zsdic"]);
@@ -43,8 +46,10 @@ public class TotkZstd : IProcessingService
     {
         handle.Name = Path.ChangeExtension(handle.Name, null);
         handle.FilePath = Path.ChangeExtension(handle.FilePath, null);
-        handle.Data = _defaultDecompressor
-            .Unwrap(handle.Data).ToArray();
+        handle.Data = (handle.Name.EndsWith(".bcett.byml")
+            ? _bcettDecompressor.Unwrap(handle.Data) : handle.Name.EndsWith(".pack")
+            ? _packDecompressor.Unwrap(handle.Data) : handle.Name.EndsWith(".rsizetable")
+            ? _defaultDecompressor.Unwrap(handle.Data) : _commonDecompressor.Unwrap(handle.Data)).ToArray();
 
         return handle;
     }
