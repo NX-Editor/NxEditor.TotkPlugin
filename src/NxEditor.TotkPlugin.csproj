@@ -8,20 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<PackageReference Include="Avalonia.AvaloniaEdit" Version="11.0.0">
-	  <Private>false</Private>
-	  <ExcludeAssets>runtime</ExcludeAssets>
-	</PackageReference>
-	<PackageReference Include="AvaloniaEdit.TextMate" Version="11.0.0">
-	  <Private>false</Private>
-	  <ExcludeAssets>runtime</ExcludeAssets>
-	</PackageReference>
+    <PackageReference Include="Avalonia.AvaloniaEdit" Version="11.0.0">
+      <Private>false</Private>
+      <ExcludeAssets>runtime</ExcludeAssets>
+    </PackageReference>
+    <PackageReference Include="AvaloniaEdit.TextMate" Version="11.0.0">
+      <Private>false</Private>
+      <ExcludeAssets>runtime</ExcludeAssets>
+    </PackageReference>
     <PackageReference Include="SarcLibrary" Version="2.0.2" />
     <PackageReference Include="ZstdSharp.Port" Version="0.7.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\lib\cs-restbl\src\CsRestbl\CsRestbl.csproj" />
     <ProjectReference Include="..\lib\NxEditor.PluginBase\src\NxEditor.PluginBase.csproj">
       <!-- Base library must be public and the runtime should
            be excluded in order for the plugin to load correctly

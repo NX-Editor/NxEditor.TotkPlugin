@@ -8,12 +8,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NxEditor.PluginBase", "lib\NxEditor.PluginBase\src\NxEditor.PluginBase.csproj", "{E03C60CF-48C2-49FC-923E-0FC226A527B8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CsRestbl", "lib\cs-restbl\src\CsRestbl\CsRestbl.csproj", "{7D8379B1-D235-4D69-8016-9B578C78A5DC}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Native.IO", "lib\cs-restbl\lib\Native.IO\src\Native.IO.csproj", "{0B67ECE8-86E4-42C8-BA19-E72957360D6C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NxEditor.TotkPlugin.Demo", "demo\NxEditor.TotkPlugin.Demo.csproj", "{51DF0DCE-7F6C-4A63-A227-862B46EE2B49}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,26 +22,12 @@ Global
 		{E03C60CF-48C2-49FC-923E-0FC226A527B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E03C60CF-48C2-49FC-923E-0FC226A527B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E03C60CF-48C2-49FC-923E-0FC226A527B8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7D8379B1-D235-4D69-8016-9B578C78A5DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7D8379B1-D235-4D69-8016-9B578C78A5DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7D8379B1-D235-4D69-8016-9B578C78A5DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7D8379B1-D235-4D69-8016-9B578C78A5DC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0B67ECE8-86E4-42C8-BA19-E72957360D6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0B67ECE8-86E4-42C8-BA19-E72957360D6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0B67ECE8-86E4-42C8-BA19-E72957360D6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0B67ECE8-86E4-42C8-BA19-E72957360D6C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{51DF0DCE-7F6C-4A63-A227-862B46EE2B49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{51DF0DCE-7F6C-4A63-A227-862B46EE2B49}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{51DF0DCE-7F6C-4A63-A227-862B46EE2B49}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{51DF0DCE-7F6C-4A63-A227-862B46EE2B49}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E03C60CF-48C2-49FC-923E-0FC226A527B8} = {065D098F-D2E4-4BA0-9931-BD48CD2822FA}
-		{7D8379B1-D235-4D69-8016-9B578C78A5DC} = {065D098F-D2E4-4BA0-9931-BD48CD2822FA}
-		{0B67ECE8-86E4-42C8-BA19-E72957360D6C} = {065D098F-D2E4-4BA0-9931-BD48CD2822FA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FFA5EEB4-8CA7-486D-A2AB-18AD124B3D7F}
