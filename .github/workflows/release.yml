@@ -19,6 +19,9 @@ jobs:
           - name: Windows
             os: windows-latest
             runtime: win-x64
+          - name: MacOS
+            os: macos-latest
+            runtime: osx-x64
 
     env:
       proj: NxEditor.TotkPlugin
