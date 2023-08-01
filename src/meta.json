@@ -1,6 +1,6 @@
 {
-  "Name": "NxEditor.TotkPlugin",
-  "Description": "",
+  "Name": "TotK Plugin",
+  "Description": "Adds customized support for tears of the Kingdom",
   "Assembly": "NxEditor.TotkPlugin.dll",
   "IsEnabled": true,
   "GitHubRepoId": -1
