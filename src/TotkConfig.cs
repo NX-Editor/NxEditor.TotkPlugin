@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using ConfigFactory.Core;
 using ConfigFactory.Core.Attributes;
+using ConfigFactory.Models;
+using NxEditor.PluginBase;
 using System.Text.Json.Serialization;
 
 namespace NxEditor.TotkPlugin;
@@ -37,12 +39,25 @@ public partial class TotkConfig : ConfigModule<TotkConfig>
     )]
     private string _zstdCompressionLevel = "16";
 
+    [ObservableProperty]
+    [property: Config(
+        Header = "RESTBL Game Version",
+        Description = "Game version used to fetch the string table for TotK when editing a RESTBL file",
+        Category = "TotK")]
+    [property: DropdownConfig("1.1.1", "1.2.0")]
+    private string _restblGameVersion = "1.2.0";
+
     partial void OnGamePathChanged(string value)
     {
         SetValidation(() => GamePath, value => {
             return value is not null
                 && File.Exists(Path.Combine(value, "Pack", "ZsDic.pack.zs"));
         });
+    }
+
+    partial void OnRestblGameVersionChanged(string value)
+    {
+        SetRestblStrings(value);
     }
 
     public static string[] GetCompressionLevels()
@@ -53,5 +68,13 @@ public partial class TotkConfig : ConfigModule<TotkConfig>
         }
 
         return result;
+    }
+
+    public static void SetRestblStrings(string version)
+    {
+        if (Frontend.TryLocate(out ConfigPageModel? configPageModel) && configPageModel?.ConfigModules.TryGetValue("EpdConfig", out IConfigModule? module) == true) {
+            module.Properties["RestblStrings"].Property.SetValue(module,
+                Path.Combine(GlobalConfig.Shared.StorageFolder, "plugins", TotkPlugin.Name, "Resources", "Restbl", $"string-table-{version}.txt"));
+        }
     }
 }
