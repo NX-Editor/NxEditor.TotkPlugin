@@ -57,7 +57,9 @@ public partial class TotkConfig : ConfigModule<TotkConfig>
 
     partial void OnRestblGameVersionChanged(string value)
     {
-        SetRestblStrings(value);
+        if (!string.IsNullOrEmpty(value)) {
+            SetRestblStrings(value);
+        }
     }
 
     public static string[] GetCompressionLevels()
