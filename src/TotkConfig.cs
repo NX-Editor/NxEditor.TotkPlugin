@@ -1,11 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using ConfigFactory.Core;
 using ConfigFactory.Core.Attributes;
+using System.Text.Json.Serialization;
 
 namespace NxEditor.TotkPlugin;
 
 public partial class TotkConfig : ConfigModule<TotkConfig>
 {
+    [JsonIgnore]
     public override string Name { get; } = "totk";
 
     [ObservableProperty]
