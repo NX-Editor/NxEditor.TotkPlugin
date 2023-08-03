@@ -44,8 +44,6 @@ public class TotkZstd : IProcessingService
 
     public IFileHandle Process(IFileHandle handle)
     {
-        handle.Name = Path.ChangeExtension(handle.Name, null);
-        handle.FilePath = Path.ChangeExtension(handle.FilePath, null);
         handle.Data = (handle.Name.EndsWith(".bcett.byml")
             ? _bcettDecompressor.Unwrap(handle.Data) : handle.Name.EndsWith(".pack")
             ? _packDecompressor.Unwrap(handle.Data) : handle.Name.EndsWith(".rsizetable")
@@ -56,11 +54,6 @@ public class TotkZstd : IProcessingService
 
     public IFileHandle Reprocess(IFileHandle handle)
     {
-        if (handle.FilePath != null) {
-            handle.FilePath += ".zs";
-        }
-
-        handle.Name += ".zs";
         handle.Data = (handle.Name.EndsWith(".bcett.byml.zs")
             ? _bcettCompressor.Wrap(handle.Data) : handle.Name.EndsWith(".pack.zs")
             ? _packCompressor.Wrap(handle.Data) : handle.Name.EndsWith(".rsizetable.zs")
