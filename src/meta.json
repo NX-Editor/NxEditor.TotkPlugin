@@ -3,5 +3,5 @@
   "Description": "Adds customized support for tears of the Kingdom",
   "Assembly": "NxEditor.TotkPlugin.dll",
   "IsEnabled": true,
-  "GitHubRepoId": -1
+  "GitHubRepoId": 666543631
 }
