@@ -44,9 +44,9 @@ public class TotkZstd : IProcessingService
 
     public IFileHandle Process(IFileHandle handle)
     {
-        handle.Data = (handle.Name.EndsWith(".bcett.byml")
-            ? _bcettDecompressor.Unwrap(handle.Data) : handle.Name.EndsWith(".pack")
-            ? _packDecompressor.Unwrap(handle.Data) : handle.Name.EndsWith(".rsizetable")
+        handle.Data = (handle.Name.EndsWith(".bcett.byml.zs")
+            ? _bcettDecompressor.Unwrap(handle.Data) : handle.Name.EndsWith(".pack.zs")
+            ? _packDecompressor.Unwrap(handle.Data) : handle.Name.EndsWith(".rsizetable.zs")
             ? _defaultDecompressor.Unwrap(handle.Data) : _commonDecompressor.Unwrap(handle.Data)).ToArray();
 
         return handle;
