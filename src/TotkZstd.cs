@@ -15,9 +15,9 @@ public class TotkZstd : IProcessingService
     private static Compressor _packCompressor = new(_level);
 
     private static readonly Decompressor _defaultDecompressor = new();
-    private static Decompressor _commonDecompressor = new();
-    private static Decompressor _bcettDecompressor = new();
-    private static Decompressor _packDecompressor = new();
+    private static readonly Decompressor _commonDecompressor = new();
+    private static readonly Decompressor _bcettDecompressor = new();
+    private static readonly Decompressor _packDecompressor = new();
 
     static TotkZstd()
     {
