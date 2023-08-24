@@ -31,13 +31,6 @@ jobs:
         with:
           submodules: recursive
 
-      - name: get-cmake
-        uses: lukka/get-cmake@v3.27.1
-
-      - name: Build Native Dependencies
-        shell: bash
-        run: ./build.sh
-
       - name: Install DotNET
         uses: actions/setup-dotnet@v3
         with:
