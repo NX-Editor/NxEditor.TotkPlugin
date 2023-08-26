@@ -44,8 +44,8 @@ public partial class TotkConfig : ConfigModule<TotkConfig>
         Header = "RESTBL Game Version",
         Description = "Game version used to fetch the string table for TotK when editing a RESTBL file",
         Category = "TotK")]
-    [property: DropdownConfig("None", "1.1.1", "1.2.0")]
-    private string _restblGameVersion = "1.2.0";
+    [property: DropdownConfig("None", "1.0.0", "1.1.0", "1.1.1", "1.2.0", "1.2.1")]
+    private string _restblGameVersion = "1.2.1";
 
     partial void OnGamePathChanged(string value)
     {
