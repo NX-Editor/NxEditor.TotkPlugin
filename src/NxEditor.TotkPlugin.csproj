@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <EnableDynamicLoading>true</EnableDynamicLoading>
@@ -14,16 +14,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia.AvaloniaEdit" Version="11.0.1">
+    <PackageReference Include="Avalonia.AvaloniaEdit" Version="11.0.5">
       <Private>false</Private>
       <ExcludeAssets>runtime</ExcludeAssets>
     </PackageReference>
-    <PackageReference Include="AvaloniaEdit.TextMate" Version="11.0.1">
+    <PackageReference Include="AvaloniaEdit.TextMate" Version="11.0.5">
       <Private>false</Private>
       <ExcludeAssets>runtime</ExcludeAssets>
     </PackageReference>
-    <PackageReference Include="SarcLibrary" Version="2.0.2" />
-    <PackageReference Include="ZstdSharp.Port" Version="0.7.2" />
+    <PackageReference Include="SarcLibrary" Version="3.0.0" />
+    <PackageReference Include="ZstdSharp.Port" Version="0.7.4" />
   </ItemGroup>
 
   <ItemGroup>
