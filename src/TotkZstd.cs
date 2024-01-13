@@ -1,5 +1,6 @@
 ﻿using NxEditor.PluginBase.Models;
 using NxEditor.PluginBase.Services;
+using Revrs;
 using SarcLibrary;
 using ZstdSharp;
 
@@ -21,17 +22,20 @@ public class TotkZstd : IProcessingService
 
     static TotkZstd()
     {
-        byte[] zsDicPack = File.ReadAllBytes(Path.Combine(TotkConfig.Shared.GamePath, "Pack", "ZsDic.pack.zs"));
-        zsDicPack = _defaultDecompressor.Unwrap(zsDicPack).ToArray();
-        SarcFile sarc = SarcFile.FromBinary(zsDicPack);
+        Span<byte> zsDicPack = _defaultDecompressor.Unwrap(
+            File.ReadAllBytes(Path.Combine(TotkConfig.Shared.GamePath, "Pack", "ZsDic.pack.zs"))
+        );
 
-        _commonDecompressor.LoadDictionary(sarc["zs.zsdic"]);
-        _bcettDecompressor.LoadDictionary(sarc["bcett.byml.zsdic"]);
-        _packDecompressor.LoadDictionary(sarc["pack.zsdic"]);
+        RevrsReader reader = new(zsDicPack);
+        ImmutableSarc sarc = new(ref reader);
 
-        _commonCompressor.LoadDictionary(sarc["zs.zsdic"]);
-        _bcettCompressor.LoadDictionary(sarc["bcett.byml.zsdic"]);
-        _packCompressor.LoadDictionary(sarc["pack.zsdic"]);
+        _commonDecompressor.LoadDictionary(sarc["zs.zsdic"].Data);
+        _bcettDecompressor.LoadDictionary(sarc["bcett.byml.zsdic"].Data);
+        _packDecompressor.LoadDictionary(sarc["pack.zsdic"].Data);
+
+        _commonCompressor.LoadDictionary(sarc["zs.zsdic"].Data);
+        _bcettCompressor.LoadDictionary(sarc["bcett.byml.zsdic"].Data);
+        _packCompressor.LoadDictionary(sarc["pack.zsdic"].Data);
     }
 
     public static void ChangeCompressionLevel(int level)
