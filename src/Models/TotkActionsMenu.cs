@@ -35,9 +35,9 @@ public class TotkActionsMenu
         IEditor? current = Frontend.Locate<IEditorManager>().Current;
         if (current?.GetType() is Type type && type.Name == "RestblEditorViewModel") {
             if (condition == null || condition.Invoke() is Task<bool> task && await task == true) {
-                type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance)?.Invoke(current, new object[] {
-                    new FileHandle(_vanillaRestblPath)
-                });
+                type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance)?.Invoke(current, [
+                    EditorFile.FromFile(_vanillaRestblPath)
+                ]);
             }
 
             return;

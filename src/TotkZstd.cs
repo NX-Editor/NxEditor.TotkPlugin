@@ -46,27 +46,37 @@ public class TotkZstd : IProcessingService
         _packCompressor = new(level);
     }
 
-    public IFileHandle Process(IFileHandle handle)
+    public void Process(IEditorFile handle)
     {
-        handle.Data = (handle.Name.EndsWith(".bcett.byml.zs")
-            ? _bcettDecompressor.Unwrap(handle.Data) : handle.Name.EndsWith(".pack.zs")
-            ? _packDecompressor.Unwrap(handle.Data) : handle.Name.EndsWith(".rsizetable.zs")
-            ? _defaultDecompressor.Unwrap(handle.Data) : _commonDecompressor.Unwrap(handle.Data)).ToArray();
-
-        return handle;
+        handle.Source = (
+            handle.Name.EndsWith(".bcett.byml.zs")
+                ? _bcettDecompressor.Unwrap(handle.Source) : handle.Name.EndsWith(".pack.zs")
+                ? _packDecompressor.Unwrap(handle.Source) : _commonDecompressor.Unwrap(handle.Source)
+            ).ToArray();
     }
 
-    public IFileHandle Reprocess(IFileHandle handle)
+    public void Reprocess(IEditorFile handle)
     {
-        handle.Data = (handle.Name.EndsWith(".bcett.byml.zs")
-            ? _bcettCompressor.Wrap(handle.Data) : handle.Name.EndsWith(".pack.zs")
-            ? _packCompressor.Wrap(handle.Data) : handle.Name.EndsWith(".rsizetable.zs")
-            ? _defaultCompressor.Wrap(handle.Data) : _commonCompressor.Wrap(handle.Data)).ToArray();
+        WriteEditorFile baseWrite = handle.Write;
+        handle.Write = (data) => {
+            if (handle.Name.EndsWith(".bcett.byml.zs")) {
+                data = _bcettCompressor.Wrap(data);
+            }
+            else if (handle.Name.EndsWith(".pack.zs")) {
+                data = _packCompressor.Wrap(data);
+            }
+            else if (handle.Name.EndsWith(".rsizetable.zs")) {
+                data = _defaultCompressor.Wrap(data);
+            }
+            else {
+                data = _commonCompressor.Wrap(data);
+            }
 
-        return handle;
+            baseWrite(data);
+        };
     }
 
-    public bool IsValid(IFileHandle handle)
+    public bool IsValid(IEditorFile handle)
     {
         return handle.Name.EndsWith(".zs");
     }
