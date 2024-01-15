@@ -60,19 +60,17 @@ public class TotkZstd : IProcessingService
         WriteEditorFile baseWrite = handle.Write;
         handle.Write = (data) => {
             if (handle.Name.EndsWith(".bcett.byml.zs")) {
-                data = _bcettCompressor.Wrap(data);
+                baseWrite(_bcettCompressor.Wrap(data));
             }
             else if (handle.Name.EndsWith(".pack.zs")) {
-                data = _packCompressor.Wrap(data);
+                baseWrite(_packCompressor.Wrap(data));
             }
             else if (handle.Name.EndsWith(".rsizetable.zs")) {
-                data = _defaultCompressor.Wrap(data);
+                baseWrite(_defaultCompressor.Wrap(data));
             }
             else {
-                data = _commonCompressor.Wrap(data);
+                baseWrite(_commonCompressor.Wrap(data));
             }
-
-            baseWrite(data);
         };
     }
 
