@@ -6,7 +6,7 @@ using ZstdSharp;
 
 namespace NxEditor.TotkPlugin;
 
-public class TotkZstd : IProcessingService
+public class TotkZstd : ITransformer
 {
     private static readonly int _level = Convert.ToInt32(TotkConfig.Shared.ZstdCompressionLevel);
 
@@ -46,7 +46,7 @@ public class TotkZstd : IProcessingService
         _packCompressor = new(level);
     }
 
-    public void Process(IEditorFile handle)
+    public void TransformSource(IEditorFile handle)
     {
         handle.Source = (
             handle.Name.EndsWith(".bcett.byml.zs")
@@ -55,23 +55,20 @@ public class TotkZstd : IProcessingService
             ).ToArray();
     }
 
-    public void Reprocess(IEditorFile handle)
+    public void Transform(ref Span<byte> data, IEditorFile handle)
     {
-        WriteEditorFile baseWrite = handle.Write;
-        handle.Write = (data) => {
-            if (handle.Name.EndsWith(".bcett.byml.zs")) {
-                baseWrite(_bcettCompressor.Wrap(data));
-            }
-            else if (handle.Name.EndsWith(".pack.zs")) {
-                baseWrite(_packCompressor.Wrap(data));
-            }
-            else if (handle.Name.EndsWith(".rsizetable.zs")) {
-                baseWrite(_defaultCompressor.Wrap(data));
-            }
-            else {
-                baseWrite(_commonCompressor.Wrap(data));
-            }
-        };
+        if (handle.Name.EndsWith(".bcett.byml.zs")) {
+            data = _bcettCompressor.Wrap(data);
+        }
+        else if (handle.Name.EndsWith(".pack.zs")) {
+            data = _packCompressor.Wrap(data);
+        }
+        else if (handle.Name.EndsWith(".rsizetable.zs")) {
+            data = _defaultCompressor.Wrap(data);
+        }
+        else {
+            data = _commonCompressor.Wrap(data);
+        }
     }
 
     public bool IsValid(IEditorFile handle)
