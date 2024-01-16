@@ -22,20 +22,12 @@
       <Private>false</Private>
       <ExcludeAssets>runtime</ExcludeAssets>
     </PackageReference>
-    <PackageReference Include="SarcLibrary" Version="3.0.0" />
-    <PackageReference Include="ZstdSharp.Port" Version="0.7.4" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\lib\NxEditor.PluginBase\src\NxEditor.PluginBase.csproj">
-      <!-- Base library must be public and the runtime should
-           be excluded in order for the plugin to load correctly
-           
-           Other shared libraries (such as Avalonia or anything that uses Avalonia)
-           should be defined in the same way -->
+    <PackageReference Include="NxEditor.PluginBase" Version="1.1.0">
       <Private>false</Private>
       <ExcludeAssets>runtime</ExcludeAssets>
-    </ProjectReference>
+    </PackageReference>
+    <PackageReference Include="SarcLibrary" Version="3.0.0" />
+    <PackageReference Include="ZstdSharp.Port" Version="0.7.4" />
   </ItemGroup>
 
   <ItemGroup>
