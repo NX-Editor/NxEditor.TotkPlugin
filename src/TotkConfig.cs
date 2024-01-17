@@ -72,7 +72,7 @@ public partial class TotkConfig : ConfigModule<TotkConfig>
 
     public static void SetRestblStrings(string version)
     {
-        if (string.IsNullOrEmpty(version) || version.ToLower() == "none") {
+        if (string.IsNullOrEmpty(version) || version.Equals("none", StringComparison.CurrentCultureIgnoreCase)) {
             return;
         }
 
