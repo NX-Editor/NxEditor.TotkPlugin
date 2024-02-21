@@ -78,7 +78,7 @@ public partial class TotkConfig : ConfigModule<TotkConfig>
 
         if (Frontend.TryLocate(out ConfigPageModel? configPageModel) && configPageModel?.ConfigModules.TryGetValue("EpdConfig", out IConfigModule? module) == true) {
             module.Properties["RestblStrings"].Property.SetValue(module,
-                Path.Combine(GlobalConfig.Shared.StorageFolder, "plugins", TotkPlugin.Name, "Resources", "Restbl", $"string-table-{version}.txt"));
+                Path.Combine(GlobalConfig.Shared.StorageFolder, "plugins", "NxEditor.TotkPlugin", "Resources", "Restbl", $"string-table-{version}.txt"));
         }
     }
 }

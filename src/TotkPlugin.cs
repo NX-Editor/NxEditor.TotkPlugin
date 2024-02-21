@@ -6,8 +6,7 @@ namespace NxEditor.TotkPlugin;
 
 public class TotkPlugin : IServiceExtension
 {
-    public static string Name { get; } = "NxEditor.TotkPlugin";
-    string IServiceExtension.Name => Name;
+    public string Name { get; } = "TotK Plugin";
 
     public void RegisterExtension(IServiceLoader serviceManager)
     {
