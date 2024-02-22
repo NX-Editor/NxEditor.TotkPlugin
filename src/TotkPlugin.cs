@@ -7,6 +7,7 @@ namespace NxEditor.TotkPlugin;
 public class TotkPlugin : IServiceExtension
 {
     public string Name { get; } = "TotK Plugin";
+    public string Version { get; } = typeof(TotkPlugin).Assembly.GetName().Version?.ToString(3) ?? "1.0.0";
 
     public void RegisterExtension(IServiceLoader serviceManager)
     {
