@@ -29,6 +29,9 @@ public partial class TotkConfig : ConfigModule<TotkConfig>
         Title = "TotK RomFS Game Path")]
     private string _gamePath = string.Empty;
 
+    [JsonIgnore]
+    public string ZsDicPath => Path.Combine(GamePath, "Pack", "ZsDic.pack.zs");
+
     [ObservableProperty]
     [property: Config(
         Header = "zStd Compression Level",
@@ -49,14 +52,21 @@ public partial class TotkConfig : ConfigModule<TotkConfig>
     partial void OnGamePathChanged(string value)
     {
         Validate(() => GamePath, value => {
-            return value is not null
-                && File.Exists(Path.Combine(value, "Pack", "ZsDic.pack.zs"));
+            bool isValid = !string.IsNullOrEmpty(value)
+                && File.Exists(Path.Combine(value, "System", "RegionLangMask.txt"));
+            TotkZstd.Reload(ZsDicPath);
+            return isValid;
         });
     }
 
     partial void OnRestblGameVersionChanged(string value)
     {
         SetRestblStrings(value);
+    }
+
+    partial void OnZstdCompressionLevelChanged(string value)
+    {
+        TotkZstd.SetLevel(Convert.ToInt32(value));
     }
 
     public static string[] GetCompressionLevels()
