@@ -1,9 +1,12 @@
-﻿using NxEditor.PluginBase;
+﻿using ConfigFactory.Avalonia.Helpers;
+using ConfigFactory.Core.Attributes;
+using NxEditor.PluginBase;
 using NxEditor.PluginBase.Attributes;
 using NxEditor.PluginBase.Common;
 using NxEditor.PluginBase.Components;
 using NxEditor.PluginBase.Models;
 using System.Reflection;
+using TotkRstbGenerator.Core;
 
 namespace NxEditor.TotkPlugin.Models;
 
@@ -28,6 +31,20 @@ public class TotkActionsMenu
     public static async Task GenerateRCL()
     {
         await CallActionMethod("GenerateRclFromHandle");
+    }
+
+    [Menu("Calculate RSTB", "Totk/RSTB", icon: "fa-percent")]
+    public static async Task CalculateRstb()
+    {
+        BrowserDialog dialog = new(BrowserMode.OpenFolder, "Open Mod Folder (RomFS)");
+        if (await dialog.ShowDialog() is string path && path.EndsWith("romfs", StringComparison.InvariantCultureIgnoreCase)) {
+            RstbGenerator generator = new(path);
+            await generator.GenerateAsync();
+
+            await DialogBox.ShowAsync("Generated RSTB", $"""
+                RSTB successfully generated in '{path}'
+                """);
+        }
     }
 
     private static async Task CallActionMethod(string methodName, Func<Task<bool>>? condition = null)

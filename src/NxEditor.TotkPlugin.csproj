@@ -19,7 +19,11 @@
       <ExcludeAssets>runtime</ExcludeAssets>
     </PackageReference>
     <PackageReference Include="SarcLibrary" Version="3.0.4" />
-    <PackageReference Include="ZstdSharp.Port" Version="0.7.4" />
+    <PackageReference Include="ZstdSharp.Port" Version="0.7.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\lib\TotK-RstbCalculator\src\TotkRstbGenerator.Core\TotkRstbGenerator.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

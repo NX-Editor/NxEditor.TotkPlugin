@@ -4,6 +4,10 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NxEditor.TotkPlugin", "src\NxEditor.TotkPlugin.csproj", "{CE458686-BC2C-4EB1-88B8-0A256AD6EED8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{58DA1BA4-D680-4F7C-B796-627F9EF2EBE0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TotkRstbGenerator.Core", "lib\TotK-RstbCalculator\src\TotkRstbGenerator.Core\TotkRstbGenerator.Core.csproj", "{A97655F1-F55E-4904-91D0-3913BB95BC64}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,9 +18,16 @@ Global
 		{CE458686-BC2C-4EB1-88B8-0A256AD6EED8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE458686-BC2C-4EB1-88B8-0A256AD6EED8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE458686-BC2C-4EB1-88B8-0A256AD6EED8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A97655F1-F55E-4904-91D0-3913BB95BC64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A97655F1-F55E-4904-91D0-3913BB95BC64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A97655F1-F55E-4904-91D0-3913BB95BC64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A97655F1-F55E-4904-91D0-3913BB95BC64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A97655F1-F55E-4904-91D0-3913BB95BC64} = {58DA1BA4-D680-4F7C-B796-627F9EF2EBE0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FFA5EEB4-8CA7-486D-A2AB-18AD124B3D7F}
