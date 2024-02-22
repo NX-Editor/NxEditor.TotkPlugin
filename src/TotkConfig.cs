@@ -35,8 +35,7 @@ public partial class TotkConfig : ConfigModule<TotkConfig>
         Description = "Compression level used when compressing with zStd\n(Restart required)",
         Category = "TotK")]
     [property: DropdownConfig(
-        RuntimeItemsSourceMethodName = "GetCompressionLevels"
-    )]
+        RuntimeItemsSourceMethodName = "GetCompressionLevels")]
     private string _zstdCompressionLevel = "16";
 
     [ObservableProperty]
