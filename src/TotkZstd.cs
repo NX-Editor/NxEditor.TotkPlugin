@@ -48,7 +48,7 @@ public class TotkZstd : ITransformer
             _decompressors[id] = decompressor;
 
             Compressor compressor = new();
-            decompressor.LoadDictionary(fileData);
+            compressor.LoadDictionary(fileData);
             _compressors[id] = compressor;
         }
     }
@@ -65,14 +65,13 @@ public class TotkZstd : ITransformer
     {
         Span<byte> buffer = handle.Source.AsSpan();
         if (buffer.Length < 5 || buffer.Read<uint>() != ZSTD_MAGIC) {
-            handle.Source = buffer.ToArray();
             return;
         }
 
         int id = GetDictionaryId(buffer);
-        _cache[handle.Id] = id;
 
         if (id > -1 && _decompressors.TryGetValue(id, out Decompressor? decompressor)) {
+            _cache[handle.Id] = id;
             handle.Source = decompressor.Unwrap(buffer).ToArray();
             return;
         }
