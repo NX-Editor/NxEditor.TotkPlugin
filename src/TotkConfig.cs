@@ -55,6 +55,7 @@ public partial class TotkConfig : ConfigModule<TotkConfig>
             bool isValid = !string.IsNullOrEmpty(value)
                 && File.Exists(Path.Combine(value, "System", "RegionLangMask.txt"));
             TotkZstd.Reload(ZsDicPath);
+            TotkZstd.SetLevel(Convert.ToInt32(ZstdCompressionLevel));
             return isValid;
         });
     }
