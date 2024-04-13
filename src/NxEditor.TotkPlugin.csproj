@@ -14,12 +14,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NxEditor.PluginBase" Version="1.4.0">
+    <PackageReference Include="NxEditor.PluginBase" Version="1.5.0">
       <Private>false</Private>
       <ExcludeAssets>runtime</ExcludeAssets>
     </PackageReference>
-    <PackageReference Include="SarcLibrary" Version="3.0.4" />
-    <PackageReference Include="ZstdSharp.Port" Version="0.7.5" />
+    <PackageReference Include="SarcLibrary" Version="3.1.2" />
+    <PackageReference Include="ZstdSharp.Port" Version="0.7.6" />
   </ItemGroup>
 
   <ItemGroup>
